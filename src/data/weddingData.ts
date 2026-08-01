@@ -1,7 +1,7 @@
 import { PosterData } from '../types';
 
-import heroPosterImg from '../assets/images/wedding_hero_poster.png';
-import venuePosterImg from '../assets/images/wedding_venue_poster.png';
+import heroPosterImg from '../assets/images/1.png';
+import venuePosterImg from '../assets/images/2.png';
 
 // Fallback high-definition images if local assets fail to load
 const HERO_IMAGE_URL =
@@ -26,17 +26,17 @@ export const WEDDING_COUPLE = {
   weddingDateISO: '2026-08-29T16:00:00',
   formattedDate: 'Samedi 29 Août 2026',
   dateShort: '29.08.2026',
-  time: '16h00',
-  venue: 'Grand Hôtel du Cap-Ferrat',
-  address: '71 Boulevard du Général de Gaulle',
-  city: 'Saint-Jean-Cap-Ferrat',
-  region: 'Côte d’Azur, France',
+  time: '14h00',
+  venue: 'Eden Event',
+  address: 'Riviera 2, Non loin du collège Andre-Malraux',
+  city: 'Abidjan, cocody',
+  region: 'Côte d’Ivoire',
   contactPhone: '+2250759373798',
   whatsappNumber: '2250759373798',
   whatsappUrl: WHATSAPP_LINK,
-  dressCode: 'Tenue de Soirée & Élégance Estivale (Nuances de blanc, bleu pastel et sable)',
-  googleMapsUrl: 'https://maps.google.com/?q=Grand+Hotel+du+Cap+Ferrat+Saint+Jean+Cap+Ferrat',
-  wazeUrl: 'https://waze.com/ul?q=Grand+Hotel+du+Cap+Ferrat',
+  dressCode: 'Soft, chic en blanc (Nuances de blanc, bleu pastel et sable)',
+  googleMapsUrl: 'https://share.google/byQkICCNsMr4kEqtz',
+  wazeUrl: 'https://share.google/byQkICCNsMr4kEqtz',
 };
 
 export const POSTERS: PosterData[] = [
@@ -47,15 +47,15 @@ export const POSTERS: PosterData[] = [
     title: 'Stéphane & Laura',
     subtitle: 'Ont le bonheur de vous inviter à célébrer leur mariage',
     date: 'Samedi 29 Août 2026',
-    time: 'À partir de 16:00',
-    locationName: 'Grand Hôtel du Cap-Ferrat',
-    locationCity: 'Saint-Jean-Cap-Ferrat • Côte d’Azur',
+    time: 'À partir de 14:00',
+    locationName: 'Eden Event',
+    locationCity: 'Riviera 2, Non loin du collège Andre-Malraux',
     image: HERO_IMAGE_URL,
-    quote: '« Deux âmes unies sous la lumière éternelle de la Méditerranée. »',
+    quote: '« Deux âmes unies sous la lumière éternelle. »',
     details: [
-      { label: 'Cérémonie Laïque', value: '16h30 au Belvédère' },
-      { label: 'Cocktail Riviera', value: '18h00 aux Jardins' },
-      { label: 'Dîner de Gala', value: '20h30 Sous les Étoiles' }
+      { 
+        label: 'Cérémonie Laïque', value: '09h00 au Belvédère' },
+      { label: 'Cocktail Riviera', value: '14h00 a Eden Event' }
     ],
     highlights: ['Cérémonie panoramique', 'Cocktail au coucher du soleil', 'Soirée dansante & Feux d’artifice']
   },
@@ -79,5 +79,3 @@ export const POSTERS: PosterData[] = [
     highlights: ['Vue mer 360°', 'Service Voiturier dédié', 'Hébergements partenaires sur réservation']
   }
 ];
-
-
