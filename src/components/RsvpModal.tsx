@@ -38,12 +38,11 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
     const guestCountStr = `${formData.guestCount} ${formData.guestCount > 1 ? 'personnes' : 'personne'}`;
     const companionsStr = formData.guestNames.trim() ? `\n👥 Accompagnateurs : ${formData.guestNames.trim()}` : '';
     const dietaryStr = formData.dietary.trim() ? `\n🍽️ Régime / Allergies : ${formData.dietary.trim()}` : '';
-    const shuttleStr = `\n🚌 Navette VIP : ${formData.shuttleNeeded ? 'Oui, souhaitée' : 'Non'}`;
     const songStr = formData.songRequest.trim() ? `\n🎵 Chanson souhaitée : ${formData.songRequest.trim()}` : '';
     const msgStr = formData.message.trim() ? `\n💬 Petit mot : "${formData.message.trim()}"` : '';
 
     const text = encodeURIComponent(
-      `Bonjour Stéphane & Laura ! ✨\n\nJe confirme avec grand plaisir ma présence à votre mariage le Samedi 29 Août 2026 !\n\n👤 Nom & Prénom : ${nameStr}\n👥 Nombre de personnes : ${guestCountStr}${companionsStr}${dietaryStr}${shuttleStr}${songStr}${msgStr}\n\nHâte de célébrer ce moment magique avec vous ! 🥂❤️`
+      `Bonjour Stéphane & Laura ! ✨\n\nJe confirme avec grand plaisir ma présence à votre mariage le Samedi 29 Août 2026 !\n\n👤 Nom & Prénom : ${nameStr}\n👥 Nombre de personnes : ${guestCountStr}${companionsStr}${dietaryStr}${songStr}${msgStr}\n\nHâte de célébrer ce moment magique avec vous ! 🥂❤️`
     );
 
     const whatsappUrl = `https://wa.me/${WEDDING_COUPLE.whatsappNumber}?text=${text}`;
@@ -195,20 +194,6 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
                     </div>
                   )}
 
-                  <div className="flex items-center gap-2 py-1">
-                    <input
-                      type="checkbox"
-                      id="shuttleNeeded"
-                      checked={formData.shuttleNeeded}
-                      onChange={(e) => setFormData({ ...formData, shuttleNeeded: e.target.checked })}
-                      className="w-4 h-4 text-[#005BFF] rounded border-slate-300 focus:ring-[#005BFF]"
-                    />
-                    <label htmlFor="shuttleNeeded" className="text-xs text-slate-700 flex items-center gap-1 cursor-pointer">
-                      <Bus className="w-3.5 h-3.5 text-[#005BFF]" />
-                      Je souhaite réserver la navette VIP retour (Nice / Cannes)
-                    </label>
-                  </div>
-
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
                       <Music className="w-3.5 h-3.5 text-[#005BFF]" />
@@ -225,7 +210,7 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                      <Sparkles className="w-3.5 h-3.5 text-[#005BFF]" />
+                      <MessageCircle className="w-3.5 h-3.5 text-[#005BFF]" />
                       Un petit mot pour les mariés
                     </label>
                     <textarea
