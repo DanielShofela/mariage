@@ -27,46 +27,48 @@ export const AudioToggle: React.FC = () => {
       const playNextNote = () => {
         if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') return;
         const currentCtx = audioCtxRef.current;
-        if (currentCtx.state !== 'running') return;
+        
+        if (currentCtx.state === 'running') {
+          const now = currentCtx.currentTime;
+          const noteFreq = freqs[step % freqs.length];
 
-        const now = currentCtx.currentTime;
-        const noteFreq = freqs[step % freqs.length];
+          // Primary Sine Chime
+          const osc = currentCtx.createOscillator();
+          const gain = currentCtx.createGain();
 
-        // Primary Sine Chime
-        const osc = currentCtx.createOscillator();
-        const gain = currentCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(noteFreq, now);
 
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(noteFreq, now);
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(0.25, now + 0.08);
+          gain.gain.linearRampToValueAtTime(0.001, now + 2.8);
 
-        gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(0.25, now + 0.08);
-        gain.gain.linearRampToValueAtTime(0.001, now + 2.8);
+          osc.connect(gain);
+          gain.connect(currentCtx.destination);
 
-        osc.connect(gain);
-        gain.connect(currentCtx.destination);
+          osc.start(now);
+          osc.stop(now + 2.9);
 
-        osc.start(now);
-        osc.stop(now + 2.9);
+          // Sub Ambient Pad Octave
+          const subOsc = currentCtx.createOscillator();
+          const subGain = currentCtx.createGain();
 
-        // Sub Ambient Pad Octave
-        const subOsc = currentCtx.createOscillator();
-        const subGain = currentCtx.createGain();
+          subOsc.type = 'triangle';
+          subOsc.frequency.setValueAtTime(noteFreq / 2, now);
 
-        subOsc.type = 'triangle';
-        subOsc.frequency.setValueAtTime(noteFreq / 2, now);
+          subGain.gain.setValueAtTime(0, now);
+          subGain.gain.linearRampToValueAtTime(0.06, now + 0.2);
+          subGain.gain.linearRampToValueAtTime(0.001, now + 3.2);
 
-        subGain.gain.setValueAtTime(0, now);
-        subGain.gain.linearRampToValueAtTime(0.06, now + 0.2);
-        subGain.gain.linearRampToValueAtTime(0.001, now + 3.2);
+          subOsc.connect(subGain);
+          subGain.connect(currentCtx.destination);
 
-        subOsc.connect(subGain);
-        subGain.connect(currentCtx.destination);
+          subOsc.start(now);
+          subOsc.stop(now + 3.3);
 
-        subOsc.start(now);
-        subOsc.stop(now + 3.3);
+          step++;
+        }
 
-        step++;
         timerRef.current = window.setTimeout(playNextNote, 1500);
       };
 
@@ -98,7 +100,30 @@ export const AudioToggle: React.FC = () => {
   };
 
   useEffect(() => {
+    // Auto-start sound by default on site initialization
+    startRomanticAmbiance();
+
+    // Listen to any touch or pointer interaction to resume AudioContext if browser suspended autoplay
+    const handleGesture = () => {
+      if (audioCtxRef.current) {
+        if (audioCtxRef.current.state === 'suspended') {
+          audioCtxRef.current.resume().then(() => {
+            setIsPlaying(true);
+          }).catch(() => {});
+        }
+      } else {
+        startRomanticAmbiance();
+      }
+    };
+
+    window.addEventListener('pointerdown', handleGesture, { passive: true });
+    window.addEventListener('touchstart', handleGesture, { passive: true });
+    window.addEventListener('click', handleGesture, { passive: true });
+
     return () => {
+      window.removeEventListener('pointerdown', handleGesture);
+      window.removeEventListener('touchstart', handleGesture);
+      window.removeEventListener('click', handleGesture);
       stopAmbiance();
     };
   }, []);

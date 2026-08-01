@@ -75,7 +75,7 @@ export default function App() {
       </main>
 
       {/* 5. Bottom Floating Button (Confirmer ma présence) */}
-      <footer className="relative z-40 pb-4 sm:pb-6 pt-1 flex items-center justify-center shrink-0 w-full pointer-events-auto">
+      <footer className="relative z-40 pb-16 sm:pb-20 pt-1 flex items-center justify-center shrink-0 w-full pointer-events-auto">
         <GlassButtons
           onOpenLocation={() => setIsLocationOpen(true)}
           onOpenRsvp={() => setIsRsvpOpen(true)}

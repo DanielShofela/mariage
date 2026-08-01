@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles } from 'lucide-react';
 
 interface LoadingScreenProps {
   onComplete: () => void;
@@ -115,9 +114,8 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
                   <motion.div
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-                    className="px-6 py-3 rounded-full bg-gradient-to-r from-[#005BFF] to-[#004CD6] text-white font-semibold text-xs sm:text-sm shadow-xl border border-white/50 flex items-center gap-2.5"
+                    className="px-6 py-3 rounded-full bg-gradient-to-r from-[#005BFF] to-[#004CD6] text-white font-semibold text-xs sm:text-sm shadow-xl border border-white/50 flex items-center justify-center"
                   >
-                    <Sparkles className="w-4 h-4 fill-white text-white" />
                     <span className="tracking-wide">Toucher l'écran pour ouvrir</span>
                   </motion.div>
                   <span className="text-[11px] text-slate-400 tracking-wider">

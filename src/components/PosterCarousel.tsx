@@ -120,7 +120,7 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
                 handleNext();
               }
             }}
-            className="w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[390px] md:max-w-[420px] mx-auto cursor-pointer active:cursor-grabbing flex items-center justify-center"
+            className="w-[82vw] xs:w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[390px] md:max-w-[420px] max-h-[50vh] xs:max-h-[54vh] sm:max-h-[60vh] mx-auto cursor-pointer active:cursor-grabbing flex items-center justify-center"
           >
             <PosterCard
               poster={posters[currentIndex]}
