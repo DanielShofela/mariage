@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { PosterData } from '../types';
 import { PosterCard } from './PosterCard';
 
@@ -10,6 +11,7 @@ interface PosterCarouselProps {
   onSwipeOffset?: (offset: number) => void; // Parallax offset -1 to 1
   onOpenLocation: () => void;
   onOpenRsvp: () => void;
+  onOpenPreview?: (index: number) => void;
 }
 
 export const PosterCarousel: React.FC<PosterCarouselProps> = ({
@@ -19,6 +21,7 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
   onSwipeOffset,
   onOpenLocation,
   onOpenRsvp,
+  onOpenPreview,
 }) => {
   const [direction, setDirection] = useState<number>(1);
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -32,16 +35,6 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
     setDirection(-1);
     onIndexChange(currentIndex === 0 ? posters.length - 1 : currentIndex - 1);
   }, [currentIndex, posters.length, onIndexChange]);
-
-  // Automatic 5-second slideshow rotation
-  useEffect(() => {
-    if (isDragging) return;
-    const interval = setInterval(() => {
-      handleNext();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [handleNext, isDragging]);
 
   // Keyboard Navigation (Arrow Left / Right)
   useEffect(() => {
@@ -80,8 +73,17 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center px-4 py-4 select-none overflow-visible">
-      {/* Swipeable & Tappable Animated Poster Card Frame (No navigation buttons) */}
+    <div className="relative w-full h-full flex items-center justify-center px-2 sm:px-4 py-2 select-none overflow-visible">
+      {/* Side Arrow - Left */}
+      <button
+        onClick={handlePrev}
+        aria-label="Affiche précédente"
+        className="absolute left-2 sm:left-6 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-slate-700 flex items-center justify-center shadow-lg border border-slate-200/80 transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
+      >
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#005BFF]" />
+      </button>
+
+      {/* Swipeable & Tappable Animated Poster Card Frame */}
       <div className="w-full flex items-center justify-center perspective-[1200px]">
         <AnimatePresence custom={direction} mode="wait">
           <motion.div
@@ -116,8 +118,8 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
               }
             }}
             onTap={() => {
-              if (!isDragging) {
-                handleNext();
+              if (!isDragging && onOpenPreview) {
+                onOpenPreview(currentIndex);
               }
             }}
             className="w-[82vw] xs:w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[390px] md:max-w-[420px] max-h-[50vh] xs:max-h-[54vh] sm:max-h-[60vh] mx-auto cursor-pointer active:cursor-grabbing flex items-center justify-center"
@@ -129,10 +131,20 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
               total={posters.length}
               onOpenLocation={onOpenLocation}
               onOpenRsvp={onOpenRsvp}
+              onOpenPreview={() => onOpenPreview && onOpenPreview(currentIndex)}
             />
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* Side Arrow - Right */}
+      <button
+        onClick={handleNext}
+        aria-label="Affiche suivante"
+        className="absolute right-2 sm:right-6 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-slate-700 flex items-center justify-center shadow-lg border border-slate-200/80 transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
+      >
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#005BFF]" />
+      </button>
     </div>
   );
 };

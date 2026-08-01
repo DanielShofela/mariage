@@ -9,6 +9,7 @@ interface PosterCardProps {
   total: number;
   onOpenLocation?: () => void;
   onOpenRsvp?: () => void;
+  onOpenPreview?: () => void;
 }
 
 export const PosterCard: React.FC<PosterCardProps> = ({
@@ -23,7 +24,7 @@ export const PosterCard: React.FC<PosterCardProps> = ({
 
   return (
     <div className="relative w-full aspect-[3/4] select-none">
-      {/* Outer Floating 3D Container */}
+      {/* Outer Floating Container */}
       <motion.div
         animate={{
           y: isActive ? [0, -6, 0] : 0,
@@ -33,10 +34,10 @@ export const PosterCard: React.FC<PosterCardProps> = ({
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className="w-full h-full relative rounded-[28px] sm:rounded-[32px] overflow-hidden bg-slate-900 border border-white/90 shadow-2xl"
+        className="w-full h-full relative rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-2xl flex items-center justify-center bg-transparent"
       >
-        {/* Layer 1: Clean High-Fashion Poster Image without text overlay */}
-        <div className="absolute inset-0 overflow-hidden bg-slate-900">
+        {/* Layer 1: Clean Uncropped Poster Image */}
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-[24px] sm:rounded-[28px]">
           <img
             src={imgSrc}
             alt={poster.title}
@@ -48,12 +49,12 @@ export const PosterCard: React.FC<PosterCardProps> = ({
                   : 'https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1200&q=80'
               );
             }}
-            className="w-full h-full object-cover scale-105 animate-ken-burns filter brightness-[0.98] contrast-[1.03]"
+            className="w-full h-full object-contain filter brightness-[0.99] contrast-[1.02] drop-shadow-xl rounded-[24px] sm:rounded-[28px]"
           />
         </div>
 
         {/* Layer 2: Glass Light Reflection Glare Sheen */}
-        <div className="absolute inset-0 pointer-events-none opacity-20 glass-sheen animate-light-sweep" />
+        <div className="absolute inset-0 pointer-events-none opacity-15 glass-sheen animate-light-sweep rounded-[24px] sm:rounded-[28px]" />
       </motion.div>
     </div>
   );

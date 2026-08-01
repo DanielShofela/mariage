@@ -12,6 +12,7 @@ import { GlassButtons } from './components/GlassButtons';
 import { LocationModal } from './components/LocationModal';
 import { RsvpModal } from './components/RsvpModal';
 import { AudioToggle } from './components/AudioToggle';
+import { PosterPreviewModal } from './components/PosterPreviewModal';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,7 @@ export default function App() {
   const [swipeOffset, setSwipeOffset] = useState(0); // -1 to 1 for live parallax shift
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
 
   return (
     <div className="relative w-full h-screen h-[100dvh] max-h-[100dvh] bg-white text-slate-800 flex flex-col justify-between overflow-hidden select-none font-sans-luxury touch-pan-x">
@@ -62,6 +64,7 @@ export default function App() {
           onSwipeOffset={(offset) => setSwipeOffset(offset)}
           onOpenLocation={() => setIsLocationOpen(true)}
           onOpenRsvp={() => setIsRsvpOpen(true)}
+          onOpenPreview={(index) => setPreviewIndex(index)}
         />
 
         {/* Pagination Indicator Dots (Suivi de page - Always visible under card) */}
@@ -92,6 +95,12 @@ export default function App() {
       <RsvpModal
         isOpen={isRsvpOpen}
         onClose={() => setIsRsvpOpen(false)}
+      />
+
+      <PosterPreviewModal
+        posters={POSTERS}
+        initialIndex={previewIndex}
+        onClose={() => setPreviewIndex(null)}
       />
     </div>
   );
