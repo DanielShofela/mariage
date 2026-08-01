@@ -23,8 +23,8 @@ export default function App() {
 
   return (
     <div className="relative w-full h-full min-h-screen bg-white text-slate-800 flex flex-col justify-between overflow-hidden select-none font-sans-luxury touch-pan-x">
-      {/* 1. Loading Screen Sequence */}
-      <LoadingScreen onComplete={() => setLoading(false)} />
+      {/* 1. Loading Screen Sequence (Plays only ONCE on initial site open) */}
+      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
       {/* 2. Layered Living Backgrounds */}
       <AnimatedBackground swipeProgress={swipeOffset} />

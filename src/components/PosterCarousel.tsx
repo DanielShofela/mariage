@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PosterData } from '../types';
 import { PosterCard } from './PosterCard';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PosterCarouselProps {
   posters: PosterData[];
@@ -21,29 +20,28 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
   onOpenLocation,
   onOpenRsvp,
 }) => {
-  const [direction, setDirection] = useState<number>(0);
+  const [direction, setDirection] = useState<number>(1);
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const handleNext = useCallback(() => {
-    if (currentIndex < posters.length - 1) {
-      setDirection(1);
-      onIndexChange(currentIndex + 1);
-    } else {
-      // Loop or bounce back
-      setDirection(1);
-      onIndexChange(0);
-    }
+    setDirection(1);
+    onIndexChange((currentIndex + 1) % posters.length);
   }, [currentIndex, posters.length, onIndexChange]);
 
   const handlePrev = useCallback(() => {
-    if (currentIndex > 0) {
-      setDirection(-1);
-      onIndexChange(currentIndex - 1);
-    } else {
-      setDirection(-1);
-      onIndexChange(posters.length - 1);
-    }
+    setDirection(-1);
+    onIndexChange(currentIndex === 0 ? posters.length - 1 : currentIndex - 1);
   }, [currentIndex, posters.length, onIndexChange]);
+
+  // Automatic 5-second slideshow rotation
+  useEffect(() => {
+    if (isDragging) return;
+    const interval = setInterval(() => {
+      handleNext();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [handleNext, isDragging]);
 
   // Keyboard Navigation (Arrow Left / Right)
   useEffect(() => {
@@ -56,7 +54,7 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleNext, handlePrev]);
 
-  // Carousel 700ms variants
+  // Carousel animated transition variants (0.7s transition)
   const variants = {
     enter: (dir: number) => ({
       x: dir > 0 ? 320 : -320,
@@ -82,25 +80,8 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center px-4 py-8 select-none overflow-visible">
-      {/* Desktop Chevron Controls */}
-      <button
-        onClick={handlePrev}
-        aria-label="Affiche précédente"
-        className="hidden md:flex absolute left-4 lg:left-12 z-30 w-12 h-12 rounded-full glass-button items-center justify-center text-slate-700 hover:text-[#005BFF] transition-all hover:scale-110 active:scale-95 shadow-md"
-      >
-        <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
-      </button>
-
-      <button
-        onClick={handleNext}
-        aria-label="Affiche suivante"
-        className="hidden md:flex absolute right-4 lg:right-12 z-30 w-12 h-12 rounded-full glass-button items-center justify-center text-slate-700 hover:text-[#005BFF] transition-all hover:scale-110 active:scale-95 shadow-md"
-      >
-        <ChevronRight className="w-6 h-6 stroke-[2.5]" />
-      </button>
-
-      {/* Swipeable Animated Poster Card Frame */}
+    <div className="relative w-full h-full flex items-center justify-center px-4 py-4 select-none overflow-visible">
+      {/* Swipeable & Tappable Animated Poster Card Frame (No navigation buttons) */}
       <div className="w-full flex items-center justify-center perspective-[1200px]">
         <AnimatePresence custom={direction} mode="wait">
           <motion.div
@@ -111,8 +92,8 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
             animate="center"
             exit="exit"
             transition={{
-              duration: 0.7, // 700 ms exactly as specified
-              ease: [0.16, 1, 0.3, 1], // Custom luxury spring curve
+              duration: 0.7,
+              ease: [0.16, 1, 0.3, 1],
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -127,14 +108,19 @@ export const PosterCarousel: React.FC<PosterCarouselProps> = ({
               setIsDragging(false);
               if (onSwipeOffset) onSwipeOffset(0);
 
-              const swipeThreshold = 50;
-              if (offset.x < -swipeThreshold || velocity.x < -400) {
+              const swipeThreshold = 40;
+              if (offset.x < -swipeThreshold || velocity.x < -300) {
                 handleNext();
-              } else if (offset.x > swipeThreshold || velocity.x > 400) {
+              } else if (offset.x > swipeThreshold || velocity.x > 300) {
                 handlePrev();
               }
             }}
-            className={`cursor-grab active:cursor-grabbing ${isDragging ? 'pointer-events-none' : ''}`}
+            onTap={() => {
+              if (!isDragging) {
+                handleNext();
+              }
+            }}
+            className="cursor-pointer active:cursor-grabbing"
           >
             <PosterCard
               poster={posters[currentIndex]}

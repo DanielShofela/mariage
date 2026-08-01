@@ -60,24 +60,5 @@ export const POSTERS: PosterData[] = [
       { label: 'Soirée Riviera', value: '23h00 • DJ Set & Bar à Champagne' }
     ],
     highlights: ['Vue mer 360°', 'Service Voiturier dédié', 'Hébergements partenaires sur réservation']
-  },
-  {
-    id: 'reception-diner',
-    badge: 'Festivités & Dîner',
-    tagline: 'Haute Gastronomie & Festivités',
-    title: 'Dîner & Étoiles',
-    subtitle: 'Une nuit magique sous les constellations de la Riviera',
-    date: '20 Juin 2027',
-    time: 'Jusqu’à l’Aube',
-    locationName: 'Le Salon des Palmiers',
-    locationCity: 'Saint-Jean-Cap-Ferrat',
-    image: receptionPosterImg,
-    quote: '« Célébrer l’amour autour des plus fines saveurs de la Méditerranée. »',
-    details: [
-      { label: 'Dîner Étoilé', value: 'Menu signature & Accord mets et vins' },
-      { label: 'Dress Code', value: 'Chic Riviera & Allure Éléganter' },
-      { label: 'Brunch du Dimanche', value: 'Le 21 Juin dès 12h00 au Club Dauphin' }
-    ],
-    highlights: ['Chef Gastronomique', 'Bar à Cocktails création', 'Brunch du lendemain inclus']
   }
 ];

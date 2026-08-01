@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 
@@ -8,6 +8,8 @@ interface LoadingScreenProps {
 
 export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const [step, setStep] = useState<number>(1); // 1: White, 2: Halo, 3: Monogram & Details, 4: Complete
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   useEffect(() => {
     // Step 1: Pure White -> Step 2: Blue Halo
@@ -17,7 +19,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     // Step 3: Complete -> Triggers parent main view opening
     const timer3 = setTimeout(() => {
       setStep(4);
-      onComplete();
+      onCompleteRef.current();
     }, 2500);
 
     return () => {
@@ -25,7 +27,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       clearTimeout(timer2);
       clearTimeout(timer3);
     };
-  }, [onComplete]);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -100,3 +102,4 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     </AnimatePresence>
   );
 };
+
