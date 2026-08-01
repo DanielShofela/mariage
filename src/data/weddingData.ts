@@ -5,9 +5,9 @@ import venuePosterImg from '../assets/images/wedding_venue_poster_1785602551581.
 import receptionPosterImg from '../assets/images/wedding_reception_poster_1785602563091.jpg';
 
 export const WEDDING_COUPLE = {
-  groom: 'Julien',
-  bride: 'Éléonore',
-  fullTitle: 'Julien & Éléonore',
+  groom: 'Stéphane',
+  bride: 'Laura',
+  fullTitle: 'Stéphane & Laura',
   weddingDateISO: '2027-06-20T16:00:00',
   formattedDate: 'Samedi 20 Juin 2027',
   time: '16h00',
@@ -27,7 +27,7 @@ export const POSTERS: PosterData[] = [
     id: 'invitation-principale',
     badge: 'L’Union',
     tagline: 'Luxe, Amour & Lumière',
-    title: 'Julien & Éléonore',
+    title: 'Stéphane & Laura',
     subtitle: 'Ont le bonheur de vous inviter à célébrer leur mariage',
     date: 'Samedi 20 Juin 2027',
     time: 'À partir de 16:00',

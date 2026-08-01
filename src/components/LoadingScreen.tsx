@@ -71,7 +71,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
                   </span>
 
                   <h1 className="font-serif-luxury text-4xl sm:text-5xl font-light text-slate-900 tracking-wide mb-3">
-                    Julien <span className="font-serif-luxury italic text-[#005BFF] font-normal">&</span> Éléonore
+                    Stéphane <span className="font-serif-luxury italic text-[#005BFF] font-normal">&</span> Laura
                   </h1>
 
                   <div className="flex items-center gap-3 my-1">

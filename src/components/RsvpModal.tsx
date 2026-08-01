@@ -35,7 +35,7 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
 
   const handleWhatsAppDirect = () => {
     const text = encodeURIComponent(
-      `Bonjour Julien & Éléonore ! ✨\n\nJe confirme avec grand bonheur ma présence à votre mariage le Samedi 20 Juin 2027 !\n\n• Nom : ${formData.fullName || 'Invité'}\n• Nombre d'invités : ${formData.guestCount}\n${formData.guestNames ? `• Accompagnateurs : ${formData.guestNames}\n` : ''}${formData.dietary ? `• Régime alimentaire : ${formData.dietary}\n` : ''}${formData.shuttleNeeded ? `• Navette : Oui souhaitée\n` : ''}${formData.message ? `• Message : "${formData.message}"\n` : ''}\nHâte de célébrer ce moment magique avec vous ! 🥂`
+      `Bonjour Stéphane & Laura ! ✨\n\nJe confirme avec grand bonheur ma présence à votre mariage le Samedi 20 Juin 2027 !\n\n• Nom : ${formData.fullName || 'Invité'}\n• Nombre d'invités : ${formData.guestCount}\n${formData.guestNames ? `• Accompagnateurs : ${formData.guestNames}\n` : ''}${formData.dietary ? `• Régime alimentaire : ${formData.dietary}\n` : ''}${formData.shuttleNeeded ? `• Navette : Oui souhaitée\n` : ''}${formData.message ? `• Message : "${formData.message}"\n` : ''}\nHâte de célébrer ce moment magique avec vous ! 🥂`
     );
 
     const whatsappUrl = `https://wa.me/${WEDDING_COUPLE.whatsappNumber}?text=${text}`;
@@ -77,7 +77,7 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
                   Merci Infinitement !
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                  Votre confirmation a été préparée et transmise à Julien & Éléonore. Nous avons tellement hâte de fêter cela avec vous le 20 Juin 2027 !
+                  Votre confirmation a été préparée et transmise à Stéphane & Laura. Nous avons tellement hâte de fêter cela avec vous le 20 Juin 2027 !
                 </p>
                 <button
                   onClick={onClose}
