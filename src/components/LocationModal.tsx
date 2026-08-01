@@ -207,7 +207,7 @@ export const LocationModal: React.FC<LocationModalProps> = ({
                   Hébergement
                 </p>
                 <p className="text-slate-600">
-                  Tarifs privilégiés négociés. Contactez le service conciergerie avec le code "WEDDING2027".
+                  Tarifs privilégiés négociés. Contactez le service conciergerie avec le code "WEDDING2026".
                 </p>
               </div>
             </div>

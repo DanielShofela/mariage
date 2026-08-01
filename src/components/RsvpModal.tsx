@@ -33,20 +33,28 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
     });
   };
 
-  const handleWhatsAppDirect = () => {
+  const handleWhatsAppSend = () => {
+    const nameStr = formData.fullName.trim() || 'Invité';
+    const guestCountStr = `${formData.guestCount} ${formData.guestCount > 1 ? 'personnes' : 'personne'}`;
+    const companionsStr = formData.guestNames.trim() ? `\n👥 Accompagnateurs : ${formData.guestNames.trim()}` : '';
+    const dietaryStr = formData.dietary.trim() ? `\n🍽️ Régime / Allergies : ${formData.dietary.trim()}` : '';
+    const shuttleStr = `\n🚌 Navette VIP : ${formData.shuttleNeeded ? 'Oui, souhaitée' : 'Non'}`;
+    const songStr = formData.songRequest.trim() ? `\n🎵 Chanson souhaitée : ${formData.songRequest.trim()}` : '';
+    const msgStr = formData.message.trim() ? `\n💬 Petit mot : "${formData.message.trim()}"` : '';
+
     const text = encodeURIComponent(
-      `Bonjour Stéphane & Laura ! ✨\n\nJe confirme avec grand bonheur ma présence à votre mariage le Samedi 20 Juin 2027 !\n\n• Nom : ${formData.fullName || 'Invité'}\n• Nombre d'invités : ${formData.guestCount}\n${formData.guestNames ? `• Accompagnateurs : ${formData.guestNames}\n` : ''}${formData.dietary ? `• Régime alimentaire : ${formData.dietary}\n` : ''}${formData.shuttleNeeded ? `• Navette : Oui souhaitée\n` : ''}${formData.message ? `• Message : "${formData.message}"\n` : ''}\nHâte de célébrer ce moment magique avec vous ! 🥂`
+      `Bonjour Stéphane & Laura ! ✨\n\nJe confirme avec grand plaisir ma présence à votre mariage le Samedi 29 Août 2026 !\n\n👤 Nom & Prénom : ${nameStr}\n👥 Nombre de personnes : ${guestCountStr}${companionsStr}${dietaryStr}${shuttleStr}${songStr}${msgStr}\n\nHâte de célébrer ce moment magique avec vous ! 🥂❤️`
     );
 
     const whatsappUrl = `https://wa.me/${WEDDING_COUPLE.whatsappNumber}?text=${text}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     triggerConfetti();
     setSubmitted(true);
   };
 
   const handleSubmitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    handleWhatsAppDirect();
+    handleWhatsAppSend();
   };
 
   return (
@@ -77,7 +85,7 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
                   Merci Infinitement !
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                  Votre confirmation a été préparée et transmise à Stéphane & Laura. Nous avons tellement hâte de fêter cela avec vous le 20 Juin 2027 !
+                  Votre confirmation a été préparée et transmise à Stéphane & Laura. Nous avons tellement hâte de fêter cela avec vous le 29 Août 2026 !
                 </p>
                 <button
                   onClick={onClose}
@@ -98,7 +106,7 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
                     Serez-vous des nôtres ?
                   </h3>
                   <p className="font-sans-luxury text-xs text-slate-500 mt-1">
-                    Veuillez confirmer votre présence avant le 15 Mai 2027.
+                    Veuillez confirmer votre présence avant le 25 Août 2026.
                   </p>
                 </div>
 
@@ -110,11 +118,11 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({ isOpen, onClose }) => {
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs font-bold truncate">Confirmation Rapide WhatsApp</p>
-                      <p className="text-[11px] opacity-90 truncate">Envoi automatique en 1 clic</p>
+                      <p className="text-[11px] opacity-90 truncate">Envoi des infos renseignées sur WhatsApp</p>
                     </div>
                   </div>
                   <button
-                    onClick={handleWhatsAppDirect}
+                    onClick={handleWhatsAppSend}
                     className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-white text-emerald-700 text-xs font-bold hover:bg-emerald-50 active:scale-95 transition-all shadow-sm flex items-center gap-1.5"
                   >
                     <Send className="w-3.5 h-3.5" />
