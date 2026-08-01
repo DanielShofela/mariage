@@ -64,7 +64,7 @@ export const POSTERS: PosterData[] = [
     badge: 'L’Écrin & Rituels',
     tagline: 'Une Expérience Inoubliable',
     title: 'Le Domaine du Cap',
-    subtitle: 'Un cadre d’exception au bord de l’eau',
+    subtitle: 'Un cadre d’exception et haut de gamme',
     date: '29 Août 2026',
     time: 'Programme Complet',
     locationName: 'Jardins & Terrasses de la Mer',
